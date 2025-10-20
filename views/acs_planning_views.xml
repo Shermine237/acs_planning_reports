@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Retirer editable="bottom" de la liste planning_line_ids -->
+    <record id="view_acs_planning_request_form_fix" model="ir.ui.view">
+        <field name="name">acs.planning.request.form.fix</field>
+        <field name="model">acs.planning.request</field>
+        <field name="inherit_id" ref="acs_planning.acs_planning_request_form"/>
+        <field name="arch" type="xml">
+            <!-- Retirer l'attribut editable -->
+            <xpath expr="//field[@name='planning_line_ids']/tree" position="attributes">
+                <attribute name="editable"></attribute>
+            </xpath>
+            <!-- Changer le domaine de employee_id -->
+            <xpath expr="//field[@name='planning_line_ids']//field[@name='employee_id']" position="attributes">
+                <attribute name="domain">[]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Retirer editable="bottom" du template de planning -->
+    <record id="view_acs_planning_request_template_form_fix" model="ir.ui.view">
+        <field name="name">acs.planning.request.template.form.fix</field>
+        <field name="model">acs.planning.request.template</field>
+        <field name="inherit_id" ref="acs_planning.acs_planning_request_template_form"/>
+        <field name="arch" type="xml">
+            <!-- Retirer l'attribut editable -->
+            <xpath expr="//field[@name='planning_line_ids']/tree" position="attributes">
+                <attribute name="editable"></attribute>
+            </xpath>
+            <!-- Changer le domaine de employee_id -->
+            <xpath expr="//field[@name='planning_line_ids']//field[@name='employee_id']" position="attributes">
+                <attribute name="domain">[]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

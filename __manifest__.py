@@ -27,6 +27,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'views/acs_planning_views.xml',
         'reports/employee_planning_report.xml',
         'reports/site_planning_report.xml',
         'views/hr_employee_views.xml',
@@ -37,5 +38,4 @@
     'application': False,
     'auto_install': False,
     'license': 'LGPL-3',
-    'post_init_hook': 'post_init_hook',
 }
