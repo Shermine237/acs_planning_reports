@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Menu Rapports sous le menu Planning -->
+    <menuitem id="menu_planning_reports"
+              name="Rapports"
+              parent="acs_planning.acs_planning_menu_root"
+              sequence="100"/>
+
+    <!-- Action pour sélectionner les employés et imprimer leur planning -->
+    <record id="action_select_employee_planning" model="ir.actions.act_window">
+        <field name="name">Planning par Agent</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('is_shift_employee', '=', True)]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Sélectionner un agent
+            </p>
+            <p>
+                Sélectionnez un ou plusieurs agents pour générer leur rapport de planning.
+                Utilisez le menu Imprimer pour télécharger le PDF.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu pour sélectionner et imprimer Planning Employé -->
+    <menuitem id="menu_report_employee_planning"
+              name="Planning par Agent"
+              parent="menu_planning_reports"
+              action="action_select_employee_planning"
+              sequence="10"/>
+
+    <!-- Action pour sélectionner les sites et imprimer leur planning -->
+    <record id="action_select_site_planning" model="ir.actions.act_window">
+        <field name="name">Planning par Site</field>
+        <field name="res_model">site.site</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Sélectionner un site
+            </p>
+            <p>
+                Sélectionnez un ou plusieurs sites pour générer le rapport de planning de leurs agents.
+                Utilisez le menu Imprimer pour télécharger le PDF.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu pour sélectionner et imprimer Planning Site -->
+    <menuitem id="menu_report_site_planning"
+              name="Planning par Site"
+              parent="menu_planning_reports"
+              action="action_select_site_planning"
+              sequence="20"/>
+
+</odoo>

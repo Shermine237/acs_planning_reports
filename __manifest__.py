@@ -31,6 +31,7 @@
         'reports/site_planning_report.xml',
         'views/hr_employee_views.xml',
         'views/site_views.xml',
+        'views/menu.xml',
     ],
     'installable': True,
     'application': False,

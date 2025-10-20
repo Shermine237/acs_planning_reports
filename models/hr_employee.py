@@ -11,7 +11,6 @@ class HrEmployee(models.Model):
         compute='_compute_planning_count'
     )
 
-    @api.depends('id')
     def _compute_planning_count(self):
         """Compute the number of planning records for this employee"""
         for employee in self:
@@ -45,7 +44,6 @@ class HrEmployeePublic(models.Model):
         compute='_compute_planning_count'
     )
 
-    @api.depends('id')
     def _compute_planning_count(self):
         """Compute the number of planning records for this employee"""
         for employee in self:
