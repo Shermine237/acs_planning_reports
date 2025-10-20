@@ -11,8 +11,9 @@
             <xpath expr="//field[@name='planning_line_ids']/list" position="attributes">
                 <attribute name="editable"></attribute>
             </xpath>
-            <!-- Ajouter le contexte pour planning_line_ids -->
+            <!-- Forcer la sauvegarde avant d'ajouter une ligne et ajouter le contexte -->
             <xpath expr="//field[@name='planning_line_ids']" position="attributes">
+                <attribute name="force_save">1</attribute>
                 <attribute name="context">{'default_planning_id': id}</attribute>
             </xpath>
             <!-- Changer le domaine de employee_id -->
@@ -32,8 +33,9 @@
             <xpath expr="//field[@name='planning_line_ids']/list" position="attributes">
                 <attribute name="editable"></attribute>
             </xpath>
-            <!-- Ajouter le contexte pour planning_line_ids -->
+            <!-- Forcer la sauvegarde avant d'ajouter une ligne et ajouter le contexte -->
             <xpath expr="//field[@name='planning_line_ids']" position="attributes">
+                <attribute name="force_save">1</attribute>
                 <attribute name="context">{'default_planning_template_id': id}</attribute>
             </xpath>
             <!-- Changer le domaine de employee_id -->
