@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- Action serveur pour imprimer les plannings des agents sélectionnés -->
+    <record id="action_print_selected_employee_plannings" model="ir.actions.server">
+        <field name="name">Imprimer Planning des Agents</field>
+        <field name="model_id" ref="acs_planning.model_acs_planning"/>
+        <field name="binding_model_id" ref="acs_planning.model_acs_planning"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = records.action_print_employee_plannings()
+        </field>
+    </record>
+
     <!-- Retirer editable="bottom" de la liste planning_line_ids -->
     <record id="view_acs_planning_request_form_fix" model="ir.ui.view">
         <field name="name">acs.planning.request.form.fix</field>
