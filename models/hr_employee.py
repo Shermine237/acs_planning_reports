@@ -51,3 +51,19 @@ class HrEmployeePublic(models.Model):
                 ('employee_id', '=', employee.id)
             ])
             employee.planning_count = planning_count
+
+    def action_view_planning(self):
+        """Action to view all planning records for this employee"""
+        self.ensure_one()
+        action = self.env["ir.actions.actions"]._for_xml_id("acs_planning.action_acs_planning")
+        action['domain'] = [('employee_id', '=', self.id)]
+        action['context'] = {
+            'default_employee_id': self.id,
+            'search_default_employee': 1,
+        }
+        return action
+
+    def action_print_employee_planning(self):
+        """Action to print employee planning report"""
+        self.ensure_one()
+        return self.env.ref('acs_planning_reports.action_report_employee_planning').report_action(self)
