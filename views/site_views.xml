@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherit Site Form to Add Planning Smart Button -->
+    <record id="view_site_form_planning_button" model="ir.ui.view">
+        <field name="name">site.site.form.planning.button</field>
+        <field name="model">site.site</field>
+        <field name="inherit_id" ref="site_ange_security.view_site_form"/>
+        <field name="arch" type="xml">
+            <!-- Add smart button in button_box after equipment button -->
+            <xpath expr="//button[@name='action_view_equipment']" position="after">
+                <button name="action_view_site_planning" 
+                        type="object" 
+                        class="oe_stat_button" 
+                        icon="fa-calendar-check-o"
+                        invisible="agent_planning_count == 0">
+                    <field name="agent_planning_count" widget="statinfo" string="Plannings"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_acs_planning_user,acs.planning.user,acs_planning.model_acs_planning,base.group_user,1,0,0,0
+access_acs_planning_request_user,acs.planning.request.user,acs_planning.model_acs_planning_request,base.group_user,1,0,0,0

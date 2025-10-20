@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Employee Planning Report Template -->
+    <template id="report_employee_planning_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <div class="text-center mb-4">
+                    <h2 class="mt-0">
+                        <strong>Planning de l'Agent</strong>
+                    </h2>
+                </div>
+
+                <!-- Employee Information -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <table class="table table-sm table-borderless">
+                                            <tr>
+                                                <td class="text-end" style="width: 40%;"><strong>Nom:</strong></td>
+                                                <td><span t-field="doc.name"/></td>
+                                            </tr>
+                                            <tr t-if="doc.barcode">
+                                                <td class="text-end"><strong>Badge ID:</strong></td>
+                                                <td><span t-field="doc.barcode"/></td>
+                                            </tr>
+                                            <tr t-if="doc.job_title">
+                                                <td class="text-end"><strong>Poste:</strong></td>
+                                                <td><span t-field="doc.job_title"/></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-6">
+                                        <table class="table table-sm table-borderless">
+                                            <tr t-if="doc.work_phone">
+                                                <td class="text-end" style="width: 40%;"><strong>Téléphone:</strong></td>
+                                                <td><span t-field="doc.work_phone"/></td>
+                                            </tr>
+                                            <tr t-if="doc.work_email">
+                                                <td class="text-end"><strong>Email:</strong></td>
+                                                <td><span t-field="doc.work_email"/></td>
+                                            </tr>
+                                            <tr t-if="doc.department_id">
+                                                <td class="text-end"><strong>Département:</strong></td>
+                                                <td><span t-field="doc.department_id.name"/></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Planning Records -->
+                <t t-set="plannings" t-value="env['acs.planning'].search([('employee_id', '=', doc.id)], order='start_date desc')"/>
+                
+                <div class="mb-3">
+                    <h4>
+                        <i class="fa fa-calendar"/> Liste des plannings
+                        <span class="badge bg-primary ms-2" t-esc="len(plannings)"/>
+                    </h4>
+                </div>
+
+                <t t-if="plannings">
+                    <table class="table table-sm table-bordered">
+                        <thead style="background-color:#875a7b; color:white;">
+                            <tr>
+                                <th class="text-center" style="width: 5%;">#</th>
+                                <th class="text-center" style="width: 15%;">Date</th>
+                                <th class="text-center" style="width: 15%;">Début</th>
+                                <th class="text-center" style="width: 15%;">Fin</th>
+                                <th class="text-center" style="width: 15%;">Horaire</th>
+                                <th class="text-center" style="width: 20%;">Lieu de travail</th>
+                                <th class="text-center" style="width: 15%;">Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="plannings" t-as="planning">
+                                <td class="text-center">
+                                    <span t-esc="planning_index + 1"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="planning.date"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="planning.start_date" t-options='{"widget": "datetime", "format": "HH:mm"}'/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="planning.end_date" t-options='{"widget": "datetime", "format": "HH:mm"}'/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-if="planning.schedule_id" t-field="planning.schedule_id.name"/>
+                                    <span t-else="">-</span>
+                                </td>
+                                <td class="text-center">
+                                    <span t-if="planning.work_location_id" t-field="planning.work_location_id.name"/>
+                                    <span t-else="">-</span>
+                                </td>
+                                <td class="text-center">
+                                    <t t-if="planning.state == 'draft'">
+                                        <span class="badge bg-secondary">Brouillon</span>
+                                    </t>
+                                    <t t-elif="planning.state == 'waiting'">
+                                        <span class="badge bg-warning">En attente</span>
+                                    </t>
+                                    <t t-elif="planning.state == 'approved'">
+                                        <span class="badge bg-success">Approuvé</span>
+                                    </t>
+                                    <t t-elif="planning.state == 'done'">
+                                        <span class="badge bg-info">Terminé</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge bg-danger">Annulé</span>
+                                    </t>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Summary Statistics -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5>Statistiques</h5>
+                                    <div class="row">
+                                        <div class="col-3 text-center">
+                                            <strong>Total plannings:</strong><br/>
+                                            <span class="badge bg-primary fs-5" t-esc="len(plannings)"/>
+                                        </div>
+                                        <div class="col-3 text-center">
+                                            <strong>Approuvés:</strong><br/>
+                                            <t t-set="approved" t-value="plannings.filtered(lambda p: p.state == 'approved')"/>
+                                            <span class="badge bg-success fs-5" t-esc="len(approved)"/>
+                                        </div>
+                                        <div class="col-3 text-center">
+                                            <strong>Terminés:</strong><br/>
+                                            <t t-set="done" t-value="plannings.filtered(lambda p: p.state == 'done')"/>
+                                            <span class="badge bg-info fs-5" t-esc="len(done)"/>
+                                        </div>
+                                        <div class="col-3 text-center">
+                                            <strong>En attente:</strong><br/>
+                                            <t t-set="waiting" t-value="plannings.filtered(lambda p: p.state == 'waiting')"/>
+                                            <span class="badge bg-warning fs-5" t-esc="len(waiting)"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+
+                <t t-else="">
+                    <div class="alert alert-info text-center" role="alert">
+                        <i class="fa fa-info-circle"/> Aucun planning trouvé pour cet agent.
+                    </div>
+                </t>
+
+                <!-- Footer with generation date -->
+                <div class="row mt-4">
+                    <div class="col-12 text-end text-muted">
+                        <small>
+                            Rapport généré le <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y à %H:%M')"/>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_employee_planning">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="acs_planning_reports.report_employee_planning_document"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- Report Action -->
+    <record id="action_report_employee_planning" model="ir.actions.report">
+        <field name="name">Planning Agent</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">acs_planning_reports.report_employee_planning</field>
+        <field name="report_file">acs_planning_reports.report_employee_planning</field>
+        <field name="binding_model_id" ref="hr.model_hr_employee"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Planning - %s' % (object.name)</field>
+    </record>
+
+</odoo>
