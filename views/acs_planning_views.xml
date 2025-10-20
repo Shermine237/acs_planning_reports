@@ -7,13 +7,22 @@
         <field name="model">acs.planning.request</field>
         <field name="inherit_id" ref="acs_planning.acs_planning_request_form"/>
         <field name="arch" type="xml">
+            <!-- Ajouter un message d'alerte si pas encore sauvegardé -->
+            <xpath expr="//page[@name='planning_lines']" position="inside">
+                <div class="alert alert-warning text-center" role="alert" invisible="id" style="margin: 20px;">
+                    <i class="fa fa-exclamation-triangle"/> 
+                    <strong>Veuillez sauvegarder ce Planning Request avant d'ajouter des lignes.</strong>
+                    <br/>
+                    <small>Cliquez sur le bouton Enregistrer en haut pour continuer.</small>
+                </div>
+            </xpath>
             <!-- Retirer l'attribut editable -->
             <xpath expr="//field[@name='planning_line_ids']/list" position="attributes">
                 <attribute name="editable"></attribute>
             </xpath>
-            <!-- Forcer la sauvegarde avant d'ajouter une ligne et ajouter le contexte -->
+            <!-- Masquer le champ si pas d'ID et ajouter le contexte -->
             <xpath expr="//field[@name='planning_line_ids']" position="attributes">
-                <attribute name="force_save">1</attribute>
+                <attribute name="invisible">not id</attribute>
                 <attribute name="context">{'default_planning_id': id}</attribute>
             </xpath>
             <!-- Changer le domaine de employee_id -->
@@ -29,13 +38,22 @@
         <field name="model">acs.planning.request.template</field>
         <field name="inherit_id" ref="acs_planning.acs_planning_request_template_form"/>
         <field name="arch" type="xml">
+            <!-- Ajouter un message d'alerte si pas encore sauvegardé -->
+            <xpath expr="//page[@name='planning_lines']" position="inside">
+                <div class="alert alert-warning text-center" role="alert" invisible="id" style="margin: 20px;">
+                    <i class="fa fa-exclamation-triangle"/> 
+                    <strong>Veuillez sauvegarder ce Planning Template avant d'ajouter des lignes.</strong>
+                    <br/>
+                    <small>Cliquez sur le bouton Enregistrer en haut pour continuer.</small>
+                </div>
+            </xpath>
             <!-- Retirer l'attribut editable -->
             <xpath expr="//field[@name='planning_line_ids']/list" position="attributes">
                 <attribute name="editable"></attribute>
             </xpath>
-            <!-- Forcer la sauvegarde avant d'ajouter une ligne et ajouter le contexte -->
+            <!-- Masquer le champ si pas d'ID et ajouter le contexte -->
             <xpath expr="//field[@name='planning_line_ids']" position="attributes">
-                <attribute name="force_save">1</attribute>
+                <attribute name="invisible">not id</attribute>
                 <attribute name="context">{'default_planning_template_id': id}</attribute>
             </xpath>
             <!-- Changer le domaine de employee_id -->
