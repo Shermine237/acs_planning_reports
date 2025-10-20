@@ -16,6 +16,12 @@
                         invisible="planning_count == 0">
                     <field name="planning_count" widget="statinfo" string="Planning"/>
                 </button>
+                <button name="action_print_employee_planning" 
+                        type="object" 
+                        class="oe_stat_button" 
+                        icon="fa-print"
+                        string="Imprimer Planning"
+                        invisible="planning_count == 0"/>
             </xpath>
         </field>
     </record>
@@ -35,6 +41,12 @@
                         invisible="planning_count == 0">
                     <field name="planning_count" widget="statinfo" string="Planning"/>
                 </button>
+                <button name="action_print_employee_planning" 
+                        type="object" 
+                        class="oe_stat_button" 
+                        icon="fa-print"
+                        string="Imprimer Planning"
+                        invisible="planning_count == 0"/>
             </xpath>
         </field>
     </record>

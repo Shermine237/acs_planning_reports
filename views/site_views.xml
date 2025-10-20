@@ -16,6 +16,12 @@
                         invisible="agent_planning_count == 0">
                     <field name="agent_planning_count" widget="statinfo" string="Plannings"/>
                 </button>
+                <button name="action_print_site_planning" 
+                        type="object" 
+                        class="oe_stat_button" 
+                        icon="fa-print"
+                        string="Imprimer Planning Site"
+                        invisible="agent_planning_count == 0"/>
             </xpath>
         </field>
     </record>
