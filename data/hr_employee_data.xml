@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Fonction pour mettre tous les employés existants comme employés de planning -->
+        <function model="hr.employee" name="search">
+            <value eval="[]"/>
+        </function>
+        
+        <function model="hr.employee" name="write">
+            <value eval="[('is_shift_employee', '=', False)]"/>
+            <value eval="{'is_shift_employee': True}"/>
+        </function>
+        
+    </data>
+</odoo>

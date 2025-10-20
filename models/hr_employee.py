@@ -6,6 +6,8 @@ from odoo import api, fields, models
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
+    is_shift_employee = fields.Boolean('Is Shift Employee', default=True)
+    
     planning_count = fields.Integer(
         string='Nombre de plannings',
         compute='_compute_planning_count'
@@ -39,6 +41,8 @@ class HrEmployee(models.Model):
 class HrEmployeePublic(models.Model):
     _inherit = 'hr.employee.public'
 
+    is_shift_employee = fields.Boolean('Is Shift Employee', default=True)
+    
     planning_count = fields.Integer(
         string='Nombre de plannings',
         compute='_compute_planning_count'

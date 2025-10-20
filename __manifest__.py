@@ -27,6 +27,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'data/hr_employee_data.xml',
         'reports/employee_planning_report.xml',
         'reports/site_planning_report.xml',
         'views/hr_employee_views.xml',
